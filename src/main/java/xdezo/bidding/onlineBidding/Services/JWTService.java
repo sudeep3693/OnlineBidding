@@ -11,6 +11,7 @@ import java.util.Date;
 
 @Service
 public class JWTService {
+
     private static final Key secret = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     private final JwtParser jwtParser = Jwts.parser().verifyWith((SecretKey) secret).build();
 
