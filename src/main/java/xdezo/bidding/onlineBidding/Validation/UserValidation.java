@@ -61,6 +61,11 @@ public class UserValidation {
             return false;
         }
 
+        if(userRepo.findByEmail(emailAddress)!=null){
+            logger.error("Email is already used");
+            return false;
+        }
+
         String regexPattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
         boolean isValid = Pattern.compile(regexPattern).matcher(emailAddress).matches();
 

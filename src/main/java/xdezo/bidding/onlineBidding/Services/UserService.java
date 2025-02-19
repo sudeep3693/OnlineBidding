@@ -11,6 +11,7 @@ import xdezo.bidding.onlineBidding.Model.User;
 import xdezo.bidding.onlineBidding.Repo.UserRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import xdezo.bidding.onlineBidding.Validation.AddressValidation;
 import xdezo.bidding.onlineBidding.Validation.UserValidation;
 
 
@@ -18,6 +19,8 @@ import xdezo.bidding.onlineBidding.Validation.UserValidation;
 public class UserService {
     @Autowired
     UserValidation userValidation;
+    @Autowired
+    AddressValidation addressValidation;
     private final Logger logger = LoggerFactory.getLogger(UserService.class.getName());
     private final AuthenticationManager authManager;
     private final UserRepo userRepo;
@@ -45,7 +48,8 @@ public class UserService {
                         if(userValidation.validateNames(user)){
 
                             if(userValidation.validateCreatedAt(user.getCreatedAt())){
-                                if (user.getAddress() != null) {
+
+                                if (addressValidation.validateAddress(user)) {
                                     user.getAddress().setUser(user);  // Ensure the relationship is set
                                     userRepo.save(user);
                                     logger.info("User registered successfully!");
@@ -53,7 +57,7 @@ public class UserService {
                                 }
                                 else{
                                     logger.error("Address is null");
-                                    return "Address is null";
+                                    return "Fill the address details properly";
                                 }
 
                             }
