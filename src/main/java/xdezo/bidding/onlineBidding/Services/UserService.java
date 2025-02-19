@@ -32,7 +32,7 @@ public class UserService {
     }
 
     public String loginUser(User user){
-        Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+        Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
 
 
         if(authentication.isAuthenticated()){

@@ -25,8 +25,36 @@ public class User {
 
 
     @NotBlank
+    @Column(nullable = false,unique = true)
+    private String email;
+
+
+    @NotBlank
     @Column(nullable = false)
     private String password;
 
+    @NotBlank
+    @Column(nullable = false)
+    private String firstName;
+
+    @NotBlank
+    @Column(nullable = false)
+    private String lastName;
+
+    @NotBlank
+    @Column(nullable = false)
+    private String phoneNumber;
+
+
+    @NotBlank
+    @Column(nullable = false)
+    private String role;
+
+    @NotBlank
+    @Column(nullable = false)
+    private String createdAt;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Address address;
 
 }
