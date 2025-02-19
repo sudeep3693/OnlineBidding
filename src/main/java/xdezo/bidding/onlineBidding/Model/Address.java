@@ -2,7 +2,11 @@ package xdezo.bidding.onlineBidding.Model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import xdezo.bidding.onlineBidding.Model.User;
 
 @Entity
 @Data
@@ -36,6 +40,6 @@ public class Address {
     private String Street;
 
     @OneToOne
+    @JoinColumn(name = "user_id", nullable = false, unique = true) // Foreign key column
     private User user;
-
 }

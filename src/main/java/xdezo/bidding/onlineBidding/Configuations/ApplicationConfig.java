@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.client.RestTemplate;
 import xdezo.bidding.onlineBidding.Filters.JwtFilter;
 
 import java.util.logging.Logger;
@@ -35,7 +36,7 @@ public class ApplicationConfig {
 
         security.csrf(customizer -> customizer.disable())
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("api/register", "api/login")
+                        .requestMatchers("api/register", "api/login", "api/time")
                         .permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
@@ -60,6 +61,11 @@ public class ApplicationConfig {
 
         return provider;
 
+    }
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 
 

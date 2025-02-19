@@ -9,10 +9,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xdezo.bidding.onlineBidding.Model.User;
 import xdezo.bidding.onlineBidding.Repo.UserRepo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import xdezo.bidding.onlineBidding.Validation.UserValidation;
+
 
 @Service
 public class UserService {
-
+    @Autowired
+    UserValidation userValidation;
+    private final Logger logger = LoggerFactory.getLogger(UserService.class.getName());
     private final AuthenticationManager authManager;
     private final UserRepo userRepo;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
@@ -25,20 +31,74 @@ public class UserService {
 
     @Transactional
     public String registerUser(User user) {
-        // Let Spring handle transactions automatically
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepo.save(user);
-        return "User registered successfully!";
+
+
+        if(userValidation.validateUsername(user.getUsername()))
+        {
+            if(userValidation.validatePhoneNo(user.getPhoneNumber())){
+
+                if(userValidation.validatePassword(user.getPassword())){
+                    user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+                    if(userValidation.validateEmail(user.getEmail())){
+
+                        if(userValidation.validateNames(user)){
+
+                            if(userValidation.validateCreatedAt(user.getCreatedAt())){
+                                if (user.getAddress() != null) {
+                                    user.getAddress().setUser(user);  // Ensure the relationship is set
+                                    userRepo.save(user);
+                                    logger.info("User registered successfully!");
+                                    return "User registered successfully!";
+                                }
+                                else{
+                                    logger.error("Address is null");
+                                    return "Address is null";
+                                }
+
+                            }
+                            else{
+                                logger.error("Invalid createdAt");
+                                return "invalid createdAt";
+                            }
+                        }
+                        else{
+                            logger.error("Invalid names");
+                            return "invalid names";
+                        }
+                    }
+                    else{
+                        logger.error("Invalid email address");
+                        return "invalid email address";
+                    }
+                }
+                else{
+                    logger.error("Invalid password");
+                    return "invalid password";
+                }
+            }
+            else{
+                logger.error("Invalid phone number");
+                return "invalid phone number";
+            }
+
+        }
+        else{
+            logger.error("Username already exists");
+            return "Username already exists";
+        }
+
     }
 
     public String loginUser(User user){
-        Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
+        Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
 
 
         if(authentication.isAuthenticated()){
            return JWTService.generateJWT(user);
         }
         else {
+            logger.error("Authentication Failed");
             return "Fail";
         }
     }

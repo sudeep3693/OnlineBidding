@@ -1,7 +1,6 @@
 package xdezo.bidding.onlineBidding.Controllers;
 
-import jakarta.servlet.http.HttpServletRequest;
-import org.apache.coyote.Response;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import xdezo.bidding.onlineBidding.Model.User;
@@ -15,9 +14,11 @@ public class HomeController {
 
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
     private final UserService userService;
-
-    public HomeController(UserService userService) {
+//    private final TimeApi timeApi;
+    @Autowired
+    public HomeController(UserService userService/*, TimeApi timeApi*/) {
         this.userService = userService;
+//        this.timeApi = timeApi;
     }
 
     @GetMapping("/home")
@@ -39,4 +40,11 @@ public class HomeController {
         String response = userService.loginUser(user);
         return ResponseEntity.ok(response);
     }
+
+//    @GetMapping("/time")
+//    public String getTime(){
+//       String str = timeApi.getTime();
+//        System.out.println(str);
+//       return str;
+//    }
 }
