@@ -1,9 +1,10 @@
 package xdezo.bidding.onlineBidding.Model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import xdezo.bidding.onlineBidding.Enums.UserRoles;
 
 @Entity
 @Data
@@ -16,18 +17,16 @@ import lombok.*;
 public class User {
 
     @Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
     @Column(nullable = false, unique = true, length = 50)
     private String username;
 
-
     @NotBlank
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
-
 
     @NotBlank
     @Column(nullable = false)
@@ -45,10 +44,10 @@ public class User {
     @Column(nullable = false)
     private String phoneNumber;
 
-
-    @NotBlank
+    @NotNull
+    @Enumerated(EnumType.STRING) // Correct way to store enum as a string in the database
     @Column(nullable = false)
-    private String role;
+    private UserRoles role;
 
     @NotBlank
     @Column(nullable = false)
@@ -56,5 +55,4 @@ public class User {
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Address address;
-
 }
