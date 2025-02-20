@@ -2,11 +2,15 @@ package xdezo.bidding.onlineBidding.Model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import xdezo.bidding.onlineBidding.Enums.ItemsStatus;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -33,21 +37,30 @@ public class Items {
     private Double startingPrice;
 
     @Column(nullable = false, length = 50 )
+    @NotBlank
     private Double currentPrice;
 
 
-    private Date start_time;
+    @Column(updatable = false)
+    private LocalDateTime start_time;
 
 
-    private Date end_time;
+    @NotBlank
+    @Column
+    private LocalDateTime end_time;
 
-    @Column(nullable = false)
+
+    @Column(updatable = false, nullable = false)
     private Long seller_id;
 
 
-    private String status;
+    @NotBlank
+    @Enumerated(EnumType.STRING)
+    private ItemsStatus status;
 
 
+    @CreationTimestamp
+    @Column(updatable = false)
     private Date created_at;
 
 

@@ -92,30 +92,30 @@ public class UserValidation {
         return true;
     }
 
-    public static boolean isValidDate(String inDate) {
-        if (inDate == null || inDate.isEmpty()) {
-            return false;
-        }
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss.SSS");
-        dateFormat.setLenient(false);
-        try {
-            dateFormat.parse(inDate.trim());
-            return true;
-        } catch (ParseException pe) {
-            return false;
-        }
-    }
-
-    public boolean validateCreatedAt(String createdAt) {
-        if (createdAt == null || createdAt.isEmpty()) {
-            logger.error("createdAt is empty");
-            return false;
-        }
-        if (!isValidDate(createdAt)) {
-            logger.error("createdAt is invalid");
-            return false;
-        }
-        logger.info("createdAt is valid");
-        return true;
-    }
+//    public static boolean isValidDate(String inDate) {
+//        if (inDate == null || inDate.isEmpty()) {
+//            return false;
+//        }
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss.SSS");
+//        dateFormat.setLenient(false);
+//        try {
+//            dateFormat.parse(inDate.trim());
+//            return true;
+//        } catch (ParseException pe) {
+//            return false;
+//        }
+//    }
+//
+//    public boolean validateCreatedAt(String createdAt) {
+//        if (createdAt == null || createdAt.isEmpty()) {
+//            logger.error("createdAt is empty");
+//            return false;
+//        }
+//        if (!isValidDate(createdAt)) {
+//            logger.error("createdAt is invalid");
+//            return false;
+//        }
+//        logger.info("createdAt is valid");
+//        return true;
+//    }
 }

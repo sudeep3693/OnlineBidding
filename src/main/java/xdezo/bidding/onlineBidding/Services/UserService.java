@@ -47,7 +47,7 @@ public class UserService {
 
                         if(userValidation.validateNames(user)){
 
-                            if(userValidation.validateCreatedAt(user.getCreatedAt())){
+//                            if(userValidation.validateCreatedAt(user.getCreatedAt().toString())){
 
                                 if (addressValidation.validateAddress(user)) {
                                     user.getAddress().setUser(user);  // Ensure the relationship is set
@@ -60,11 +60,11 @@ public class UserService {
                                     return "Fill the address details properly";
                                 }
 
-                            }
-                            else{
-                                logger.error("Invalid createdAt");
-                                return "invalid createdAt";
-                            }
+//                            }
+//                            else{
+//                                logger.error("Invalid createdAt");
+//                                return "invalid createdAt";
+//                            }
                         }
                         else{
                             logger.error("Invalid names");
