@@ -39,15 +39,15 @@ public class Payments {
     @Column(nullable = false, updatable = false, unique = true)
     private String transaction_id;
 
-    @NotNull // Changed from @NotBlank
+    @NotNull
     @Column(nullable = false)
     private LocalDateTime payment_date;
 
     @OneToOne
     @JoinColumn(name = "auction_id")
-    private Auctions auction; // Changed from auction_id
+    private Auctions auction;
 
     @OneToOne
-    @JoinColumn(name = "user_id")// Must match the field in User.java
+    @JoinColumn(name = "user_id")
     private User user;
 }

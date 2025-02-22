@@ -13,6 +13,7 @@ import xdezo.bidding.onlineBidding.Enums.UserRoles;
 import xdezo.bidding.onlineBidding.Model.Bids;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -71,6 +72,10 @@ public class User {
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     private Payments payments;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user_id")
+    @Column(nullable = false)
+    private List<Notifications> notification;
 
     @NotNull
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "users_address")
