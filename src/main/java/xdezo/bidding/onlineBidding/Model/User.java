@@ -31,7 +31,6 @@ public class User {
     private Long id;
 
     @NotBlank
-
     @Column(nullable = false, unique = true, length = 50)
     private String username;
 
@@ -56,7 +55,7 @@ public class User {
     private String phoneNumber;
 
     @NotNull
-    @Enumerated(EnumType.STRING) // Correct way to store enum as a string in the database
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserRoles role;
 
@@ -70,8 +69,10 @@ public class User {
     private String imageUrl;
 
 
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    private Payments payments;
 
     @NotNull
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "users_address")
     private Address address;
 }

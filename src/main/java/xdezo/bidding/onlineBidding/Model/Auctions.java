@@ -62,9 +62,20 @@ public class Auctions {
     @Column(updatable = false)
     private Date created_at;
 
+    @Column(nullable = false, length = 500)
     private String image_url;
+
+    @Column(nullable = false)
     private Double buy_now_price;
+
+    @Column(nullable = false)
     private Double bid_increment;
+
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "auction", orphanRemoval = true)
+    private Payments payment_id;
+
+
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)

@@ -40,5 +40,5 @@ public class Address {
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false, unique = true) // Foreign key column
-    private User user;
+    private User users_address;
 }

@@ -51,7 +51,7 @@ public class UserService {
                             if(userValidation.isvalidRole(String.valueOf(user.getRole()))){
 
                                 if (addressValidation.validateAddress(user)) {
-                                    user.getAddress().setUser(user);  // Ensure the relationship is set
+                                    user.getAddress().setUsers_address(user);  // Ensure the relationship is set
                                     userRepo.save(user);
                                     logger.info("User registered successfully!");
                                     return "User registered successfully!";
