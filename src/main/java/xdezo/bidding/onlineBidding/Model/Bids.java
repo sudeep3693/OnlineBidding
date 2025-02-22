@@ -22,11 +22,11 @@ public class Bids {
 
     @ManyToOne
     @JoinColumn(name = "item_id", nullable = false)
-    private Items item;
+    private Auctions item;
 
     @ManyToOne
     @JoinColumn(name = "bidder_id", nullable = false)
-    private User bidder;
+    private User user;
 
     @Column(nullable = false)
     private double bidAmount;

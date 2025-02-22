@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import xdezo.bidding.onlineBidding.Enums.UserRoles;
 import xdezo.bidding.onlineBidding.Model.User;
 import xdezo.bidding.onlineBidding.Repo.UserRepo;
 
@@ -92,30 +93,32 @@ public class UserValidation {
         return true;
     }
 
-//    public static boolean isValidDate(String inDate) {
-//        if (inDate == null || inDate.isEmpty()) {
-//            return false;
-//        }
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss.SSS");
-//        dateFormat.setLenient(false);
-//        try {
-//            dateFormat.parse(inDate.trim());
-//            return true;
-//        } catch (ParseException pe) {
-//            return false;
-//        }
-//    }
-//
-//    public boolean validateCreatedAt(String createdAt) {
-//        if (createdAt == null || createdAt.isEmpty()) {
-//            logger.error("createdAt is empty");
-//            return false;
-//        }
-//        if (!isValidDate(createdAt)) {
-//            logger.error("createdAt is invalid");
-//            return false;
-//        }
-//        logger.info("createdAt is valid");
-//        return true;
-//    }
+
+
+    public boolean isvalidRole(String role){
+
+        if(role.isEmpty()){
+
+            System.out.println("user role cannot be empty");
+            logger.error("empty user role");
+            return false;
+        }
+        else{
+            for (UserRoles s : UserRoles.values()) {
+                if (s.name().equalsIgnoreCase(role)) { // Case-insensitive match
+                    logger.info("valid user role");
+                    return true;
+                }
+                else{
+                    logger.error("Role not found");
+                    return false;
+                }
+
+                }
+
+        }
+
+        logger.error("Role not found");
+        return false; // Return false if no match is found
+    }
 }

@@ -31,6 +31,7 @@ public class User {
     private Long id;
 
     @NotBlank
+
     @Column(nullable = false, unique = true, length = 50)
     private String username;
 
@@ -64,9 +65,13 @@ public class User {
 //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss.SSS")
     private LocalDateTime createdAt;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Address address;
+    @NotNull
+    @Column(length = 100)
+    private String imageUrl;
 
-    @OneToMany(mappedBy = "bidder", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Bids> bids; // Changed to Set or List for the OneToMany relationship
+
+
+    @NotNull
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    private Address address;
 }

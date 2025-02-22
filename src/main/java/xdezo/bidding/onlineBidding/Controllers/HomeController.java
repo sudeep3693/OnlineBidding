@@ -3,10 +3,15 @@ package xdezo.bidding.onlineBidding.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import xdezo.bidding.onlineBidding.Model.Auctions;
 import xdezo.bidding.onlineBidding.Model.User;
+import xdezo.bidding.onlineBidding.Services.AuctionsListedService;
 import xdezo.bidding.onlineBidding.Services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api") // Common base path for endpoints
@@ -14,11 +19,12 @@ public class HomeController {
 
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
     private final UserService userService;
-//    private final TimeApi timeApi;
+    private final AuctionsListedService auctionsListedService;
+
     @Autowired
-    public HomeController(UserService userService/*, TimeApi timeApi*/) {
+    public HomeController(UserService userService, AuctionsListedService auctionsListedService/*, TimeApi timeApi*/) {
         this.userService = userService;
-//        this.timeApi = timeApi;
+        this.auctionsListedService = auctionsListedService;
     }
 
     @GetMapping("/home")
@@ -41,10 +47,13 @@ public class HomeController {
         return ResponseEntity.ok(response);
     }
 
-//    @GetMapping("/time")
-//    public String getTime(){
-//       String str = timeApi.getTime();
-//        System.out.println(str);
-//       return str;
-//    }
+    @GetMapping("/allBids")
+    public ResponseEntity<List<Auctions>> getAllItems(){
+
+    List<Auctions> allItems =  auctionsListedService.getAllItems();
+        System.out.println(allItems);
+        return ResponseEntity.ok(allItems);
+    }
+
+
 }

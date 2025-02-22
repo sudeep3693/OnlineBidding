@@ -1,6 +1,6 @@
 package xdezo.bidding.onlineBidding.Enums;
 
-public enum ItemsStatus {
+public enum AuctionStatus {
 
     ACTIVE,
     CLOSED
