@@ -62,12 +62,11 @@ public class User {
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss.SSS")
     private LocalDateTime createdAt;
 
     @NotNull
     @Column(length = 100)
-    private String imageUrl;
+    private String imageUrl = "default image";
 
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")

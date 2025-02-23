@@ -36,7 +36,7 @@ public class ApplicationConfig {
 
         security.csrf(customizer -> customizer.disable())
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("api/register", "api/login", "api/time")
+                        .requestMatchers("api/register", "api/login")
                         .permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())

@@ -51,6 +51,8 @@ public class JwtFilter extends OncePerRequestFilter {
             }
             else{
                 System.out.println("session expired");
+                response.setContentType("text/plain");
+                response.getWriter().write("Session expired");
                 response.setStatus(401);
             }
         }

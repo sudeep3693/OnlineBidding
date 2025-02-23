@@ -2,6 +2,7 @@ package xdezo.bidding.onlineBidding.Services;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import xdezo.bidding.onlineBidding.Model.User;
 
@@ -9,6 +10,7 @@ import javax.crypto.SecretKey;
 import java.security.Key;
 import java.util.Date;
 
+@Slf4j
 @Service
 public class JWTService {
 
@@ -22,13 +24,20 @@ public class JWTService {
                 .subject(user.getUsername())
                 .issuer("Online Bidding System")
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis()+1000*60*60))//for 1 hour
+                .expiration(new Date(System.currentTimeMillis()+1000*60*30))//for 1 minute
                 .signWith(secret)
                 .compact();
     }
 
     public String getUserName(String token) {
-        return jwtParser.parseClaimsJws(token).getPayload().getSubject();
+        try{
+            return jwtParser.parseClaimsJws(token).getPayload().getSubject();
+
+        }
+        catch (Exception e){
+            log.error("Exception in getting jwt");
+            return null;
+        }
 
     }
 
