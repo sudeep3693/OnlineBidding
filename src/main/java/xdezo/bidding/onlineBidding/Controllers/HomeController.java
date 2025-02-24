@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api") // Common base path for endpoints
+@RequestMapping("/api")
 public class HomeController {
 
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -22,7 +22,7 @@ public class HomeController {
     private final AuctionsListedService auctionsListedService;
 
     @Autowired
-    public HomeController(UserService userService, AuctionsListedService auctionsListedService/*, TimeApi timeApi*/) {
+    public HomeController(UserService userService, AuctionsListedService auctionsListedService) {
         this.userService = userService;
         this.auctionsListedService = auctionsListedService;
     }
@@ -61,10 +61,6 @@ public class HomeController {
         return "Home Bidder";
     }
 
-    @GetMapping("/seller/sellerHome")
-    public String getSellerHome(){
-        return "Home Seller";
-    }
 
 
 }
