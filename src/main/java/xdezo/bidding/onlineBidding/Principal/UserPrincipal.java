@@ -19,8 +19,13 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(user.getRole().toString()));
+        String role = "ROLE_" + user.getRole();  // Ensure it matches Spring Security's expectations
+        System.out.println("Assigned role: " + role); // Debugging log
+        return List.of(new SimpleGrantedAuthority(role));
     }
+
+
+
 
     @Override
     public String getPassword() {

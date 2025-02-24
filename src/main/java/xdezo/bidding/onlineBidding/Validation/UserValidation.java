@@ -95,30 +95,21 @@ public class UserValidation {
 
 
 
-    public boolean isvalidRole(String role){
-
-        if(role.isEmpty()){
-
-            System.out.println("user role cannot be empty");
-            logger.error("empty user role");
+    public boolean isvalidRole(String role) {
+        if (role == null || role.isEmpty()) {
+            logger.error("User role cannot be empty");
             return false;
         }
-        else{
-            for (UserRoles s : UserRoles.values()) {
-                if (s.name().equalsIgnoreCase(role)) { // Case-insensitive match
-                    logger.info("valid user role");
-                    return true;
-                }
-                else{
-                    logger.error("Role not found");
-                    return false;
-                }
 
-                }
-
+        for (UserRoles s : UserRoles.values()) {
+            if (s.name().equalsIgnoreCase(role)) { // Case-insensitive match
+                logger.info("Valid user role: {}", role);
+                return true; // ✅ Return true only if a match is found
+            }
         }
 
-        logger.error("Role not found");
-        return false; // Return false if no match is found
+        logger.error("Role not found:{}", role);
+        return false; // Return false if no role matches
     }
+
 }

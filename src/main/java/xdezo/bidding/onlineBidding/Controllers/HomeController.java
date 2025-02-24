@@ -55,5 +55,16 @@ public class HomeController {
         return ResponseEntity.ok(allItems);
     }
 
+    @GetMapping("/bidder/bidderHome")
+    public String getBidderHome(){
+        System.out.println("fetching bidder home");
+        return "Home Bidder";
+    }
+
+    @GetMapping("/seller/sellerHome")
+    public String getSellerHome(){
+        return "Home Seller";
+    }
+
 
 }

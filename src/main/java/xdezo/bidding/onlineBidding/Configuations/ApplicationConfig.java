@@ -38,6 +38,9 @@ public class ApplicationConfig {
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("api/register", "api/login")
                         .permitAll()
+                        .requestMatchers("api/bidder/**").hasRole("BIDDER")
+                        .requestMatchers("api/seller/**").hasRole("SELLER")
+                        .requestMatchers("api/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
