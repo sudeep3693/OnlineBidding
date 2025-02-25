@@ -16,6 +16,7 @@ public class AuctionsListedService {
 
     public AuctionsListedService(AuctionsRepo itemsRepo) {
         this.itemsRepo = itemsRepo;
+
     }
 
     // Read-only transaction for fetching data
@@ -29,7 +30,7 @@ public class AuctionsListedService {
     public List<Auctions> addAuction(Auctions auctions) {
         try {
             // Save the auction and return it in a singleton list
-            validateCategory(auctions);
+
             Auctions savedAuction = itemsRepo.save(auctions);
             return Collections.singletonList(savedAuction);
         } catch (Exception e) {

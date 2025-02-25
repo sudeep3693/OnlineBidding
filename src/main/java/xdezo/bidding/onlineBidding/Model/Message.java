@@ -24,6 +24,7 @@ public class Message {
     @NotNull
     @Column(updatable = false)
     private Long receiver_id;
+
     @Column(updatable = false)
     private Long sender_id;
 

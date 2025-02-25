@@ -21,10 +21,10 @@ public class JWTService {
     public static String generateJWT(User user  ) {
 
         return Jwts.builder()
-                .subject(user.getUsername())
+                .subject(user.getEmail())
                 .issuer("Online Bidding System")
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis()+1000*60*30))//for 1 minute
+                .expiration(new Date(System.currentTimeMillis()+1000*60*60*24))//for 1 day
                 .signWith(secret)
                 .compact();
     }

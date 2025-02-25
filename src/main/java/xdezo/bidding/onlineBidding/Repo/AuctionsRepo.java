@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface AuctionsRepo extends JpaRepository<Auctions,Long> {
 
-    @Override
 
-    List<Auctions>  findAll();
+
+
 
     List<Auctions> findByStatus(String status);
 }

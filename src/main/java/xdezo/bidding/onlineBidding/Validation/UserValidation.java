@@ -101,8 +101,8 @@ public class UserValidation {
             return false;
         }
 
-        for (UserRoles s : UserRoles.values()) {
-            if (s.name().equalsIgnoreCase(role)) { // Case-insensitive match
+        for (UserRoles userrole : UserRoles.values()) {
+            if (userrole.name().equalsIgnoreCase(role)) { // Case-insensitive match
                 logger.info("Valid user role: {}", role);
                 return true;
             }

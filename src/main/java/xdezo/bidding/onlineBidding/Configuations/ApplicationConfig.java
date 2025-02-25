@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import xdezo.bidding.onlineBidding.Filters.JwtFilter;
 
 import java.util.logging.Logger;
@@ -77,4 +78,6 @@ public class ApplicationConfig {
 
         return authenticationConfiguration.getAuthenticationManager();
     }
+
+
 }
