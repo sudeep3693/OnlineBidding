@@ -1,10 +1,11 @@
 package xdezo.bidding.onlineBidding.Services;
 
-import org.hibernate.service.spi.ServiceException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import xdezo.bidding.onlineBidding.EntitiesCategories.AuctionCategory;
 import xdezo.bidding.onlineBidding.Model.Auctions;
 import xdezo.bidding.onlineBidding.Repo.AuctionsRepo;
+import xdezo.bidding.onlineBidding.Repo.CategoryRepo;
 
 import java.util.Collections;
 import java.util.List;
@@ -13,9 +14,11 @@ import java.util.List;
 public class AuctionsListedService {
 
     private final AuctionsRepo itemsRepo;
+    private final CategoryRepo categoryRepo;
 
-    public AuctionsListedService(AuctionsRepo itemsRepo) {
+    public AuctionsListedService(AuctionsRepo itemsRepo, CategoryRepo categoryRepo) {
         this.itemsRepo = itemsRepo;
+        this.categoryRepo = categoryRepo;
 
     }
 
@@ -27,15 +30,17 @@ public class AuctionsListedService {
 
     // Transactional method for adding an auction
     @Transactional(rollbackFor = Exception.class)
-    public List<Auctions> addAuction(Auctions auctions) {
-        try {
-            // Save the auction and return it in a singleton list
+    public Auctions addAuction(Auctions auction) {
+        String categoryTitle = auction.getCategory_title().toUpperCase();
+        AuctionCategory category = categoryRepo.findByCategoryTitle(categoryTitle);
 
-            Auctions savedAuction = itemsRepo.save(auctions);
-            return Collections.singletonList(savedAuction);
-        } catch (Exception e) {
-            // Log the exception and rethrow it to trigger rollback
-            throw new ServiceException("Failed to add auction", e);
+
+        if (category == null) {
+            throw new IllegalArgumentException("Category not found!");
         }
+
+        auction.setCategory(category);
+        return itemsRepo.save(auction);
     }
+
 }

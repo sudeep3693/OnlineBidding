@@ -1,6 +1,7 @@
 package xdezo.bidding.onlineBidding.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,17 +22,24 @@ public class Bids {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "item_id", nullable = false)
-    private Auctions item;
+    @JoinColumn(name = "auction_id", nullable = false)
+    private Auctions auctionId;
 
     @ManyToOne
     @JoinColumn(name = "bidder_id", nullable = false)
-    private User user;
+    private User bidder_id;
 
     @Column(nullable = false)
     private double bidAmount;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
-    private LocalDateTime bidTime; // Auto-generate timestamp
+    private LocalDateTime bidTime;
+
+
+    @NotNull
+    private boolean is_auto_bid;
+
+    @Column(length = 20, name = "autoBidLimit")
+    private double auto_bid_limit;
 }

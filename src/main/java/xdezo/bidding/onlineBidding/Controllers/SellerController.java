@@ -1,6 +1,5 @@
 package xdezo.bidding.onlineBidding.Controllers;
 
-import jdk.jfr.Category;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +10,7 @@ import xdezo.bidding.onlineBidding.Services.AuctionsListedService;
 import xdezo.bidding.onlineBidding.Services.CategoryService;
 
 @RestController
-@RequestMapping("/seller")
+@RequestMapping("/api/seller")
 public class SellerController {
 
     private static final Logger logger = LoggerFactory.getLogger(SellerController.class);
@@ -31,18 +30,23 @@ public class SellerController {
     @PostMapping("/addAuction")
     public ResponseEntity<?> addAuction(@RequestBody Auctions auction) {
         try {
-            logger.info("Add auction request received: {}", auction);
-            Auctions savedAuction = (Auctions) auctionsListedService.addAuction(auction);
+            logger.info("Received request to add auction: Title={}, Category={}",
+                    auction.getTitle(),
+                    auction.getCategory_title());
+
+            String savedAuction = String.valueOf(auctionsListedService.addAuction(auction));
             return ResponseEntity.ok(savedAuction);
+        } catch (IllegalArgumentException e) {
+            logger.error("Category not found: {}", e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
             logger.error("Error adding auction: {}", e.getMessage());
-            return ResponseEntity.badRequest().body("Error adding auction: " + e.getMessage());
+            return ResponseEntity.internalServerError().body("Internal server error");
         }
     }
 
     @PostMapping("/addCategory")
     public ResponseEntity<AuctionCategory> addCategory(@RequestBody AuctionCategory category){
-
         return ResponseEntity.ok(categoryService.addCategory(category));
     }
 }

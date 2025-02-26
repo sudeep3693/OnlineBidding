@@ -7,7 +7,6 @@ import xdezo.bidding.onlineBidding.Model.User;
 @Repository
 public interface UserRepo extends JpaRepository<User,Integer> {
 
-    User findByUsername(String username);
 
     User findByEmail(String email);
 

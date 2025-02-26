@@ -13,102 +13,84 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import xdezo.bidding.onlineBidding.Validation.AddressValidation;
 import xdezo.bidding.onlineBidding.Validation.UserValidation;
-
+import xdezo.bidding.onlineBidding.Services.JWTService;
 
 @Service
 public class UserService {
-    @Autowired
-    UserValidation userValidation;
-    @Autowired
-    AddressValidation addressValidation;
-    private final Logger logger = LoggerFactory.getLogger(UserService.class.getName());
+
+    private final Logger logger = LoggerFactory.getLogger(UserService.class);
     private final AuthenticationManager authManager;
     private final UserRepo userRepo;
+    private final UserValidation userValidation;
+    private final AddressValidation addressValidation;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
 
-    public UserService(AuthenticationManager authManager, UserRepo userRepo) {
+    @Autowired
+    public UserService(AuthenticationManager authManager, UserRepo userRepo,
+                       UserValidation userValidation, AddressValidation addressValidation) {
         this.authManager = authManager;
         this.userRepo = userRepo;
-
+        this.userValidation = userValidation;
+        this.addressValidation = addressValidation;
     }
 
     @Transactional
     public String registerUser(User user) {
-
-
-        if(userValidation.validateUsername(user.getUsername()))
-        {
-            if(userValidation.validatePhoneNo(user.getPhoneNumber())){
-
-                if(userValidation.validatePassword(user.getPassword())){
-                    user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-                    if(userValidation.validateEmail(user.getEmail())){
-
-                        if(userValidation.validateNames(user)){
-
-
-                            if(userValidation.isvalidRole(String.valueOf(user.getRole()))){
-
-                                if (addressValidation.validateAddress(user)) {
-                                    user.getAddress().setUsers_address(user);  // Ensure the relationship is set
-                                    userRepo.save(user);
-                                    logger.info("User registered successfully!");
-                                    return "User registered successfully!";
-                                }
-                                else{
-                                    logger.error("Address is null");
-                                    return "Fill the address details properly";
-                                }
-                            }
-
-                            else{
-
-                                logger.error("role not valid");
-                                return "role is not valid";
-                            }
-
-
-
-                        }
-                        else{
-                            logger.error("Invalid names");
-                            return "invalid names";
-                        }
-                    }
-                    else{
-                        logger.error("Invalid email address");
-                        return "invalid email address";
-                    }
-                }
-                else{
-                    logger.error("Invalid password");
-                    return "invalid password";
-                }
-            }
-            else{
-                logger.error("Invalid phone number");
-                return "invalid phone number";
-            }
-
-        }
-        else{
-            logger.error("Username already exists");
-            return "Username already exists";
+        if (!userValidation.validatePhoneNo(user.getPhoneNumber())) {
+            logger.error("Invalid phone number");
+            return "Invalid phone number";
         }
 
+        if (!userValidation.validatePassword(user.getPassword())) {
+            logger.error("Invalid password");
+            return "Invalid password";
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        if (!userValidation.validateEmail(user.getEmail())) {
+            logger.error("Invalid email address");
+            return "Invalid email address";
+        }
+
+        if (!userValidation.validateNames(user)) {
+            logger.error("Invalid names");
+            return "Invalid names";
+        }
+
+        if (!userValidation.isvalidRole(String.valueOf(user.getRole()))) {
+            logger.error("Invalid role");
+            return "Role is not valid";
+        }
+
+        if (!addressValidation.validateAddress(user)) {
+            logger.error("Invalid address details");
+            return "Fill the address details properly";
+        }
+
+        if (user.getAddress() != null) {
+            user.getAddress().setUsers_address(user);
+        } else {
+            logger.error("User address is null");
+            return "Address cannot be null";
+        }
+
+        userRepo.save(user);
+        logger.info("User registered successfully!");
+        return "User registered successfully!";
     }
 
-    public String loginUser(User user){
-        Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+    public String loginUser(User user) {
+        try {
+            Authentication authentication = authManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
+            );
 
-
-        if(authentication.isAuthenticated()){
-           return JWTService.generateJWT(user);
+            if (authentication.isAuthenticated()) {
+                return JWTService.generateJWT(user);
+            }
+        } catch (Exception e) {
+            logger.error("Authentication failed: " + e.getMessage());
         }
-        else {
-            logger.error("Authentication Failed");
-            return "Fail";
-        }
+        return "Authentication failed";
     }
 }

@@ -14,15 +14,15 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api")
-public class HomeController {
+@RequestMapping("/api/public")
+public class PublicController {
 
-    private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+    private static final Logger logger = LoggerFactory.getLogger(PublicController.class);
     private final UserService userService;
     private final AuctionsListedService auctionsListedService;
 
     @Autowired
-    public HomeController(UserService userService, AuctionsListedService auctionsListedService) {
+    public PublicController(UserService userService, AuctionsListedService auctionsListedService) {
         this.userService = userService;
         this.auctionsListedService = auctionsListedService;
     }

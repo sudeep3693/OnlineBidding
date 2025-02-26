@@ -16,7 +16,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import xdezo.bidding.onlineBidding.Filters.JwtFilter;
 
 import java.util.logging.Logger;
@@ -37,7 +36,7 @@ public class ApplicationConfig {
 
         security.csrf(customizer -> customizer.disable())
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("api/register", "api/login")
+                        .requestMatchers("api/public/register", "api/public/login", "api/public/home")
                         .permitAll()
                         .requestMatchers("api/bidder/**").hasRole("BIDDER")
                         .requestMatchers("api/seller/**").hasRole("SELLER")

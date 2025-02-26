@@ -20,6 +20,7 @@ public class CategoryService {
     @Transactional
     public AuctionCategory addCategory(AuctionCategory category){
 
+        category.setCategoryTitle(category.getCategoryTitle().toUpperCase());
        return  categoryRepo.save(category);
     }
 }

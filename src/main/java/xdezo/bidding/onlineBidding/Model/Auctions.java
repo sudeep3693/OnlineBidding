@@ -2,22 +2,23 @@ package xdezo.bidding.onlineBidding.Model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import xdezo.bidding.onlineBidding.EntitiesCategories.AuctionCategory;
 import xdezo.bidding.onlineBidding.Enums.AuctionStatus;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Data
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
+@Setter
+
 public class Auctions {
 
     @Id
@@ -25,7 +26,7 @@ public class Auctions {
     @Column(name = "item_id", nullable = false)
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 50)
+    @Column(nullable = false, unique = true, length = 255)
     private String title;
 
     @Column(nullable = false, length = 500)
@@ -51,12 +52,17 @@ public class Auctions {
     @Column(nullable = false)
     private LocalDateTime end_time;
 
-    @Column(updatable = false, nullable = false)
-    private Long seller_id;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "sellerId")
+    private User seller_id;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     private AuctionStatus status;
+
+    @Transient
+    private String category_title;
 
     @CreationTimestamp
     @Column(updatable = false)
@@ -72,10 +78,11 @@ public class Auctions {
     private Double bid_increment;
 
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "auction", orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "auction_id", orphanRemoval = true)
     private Payments payment_id;
 
-
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "auctionId", orphanRemoval = true)
+    private List<Bids> bid;
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)

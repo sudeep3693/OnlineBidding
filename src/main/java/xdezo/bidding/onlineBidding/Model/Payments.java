@@ -27,17 +27,17 @@ public class Payments {
     @Column(nullable = false)
     private Double amount;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private PaymentMethod payment_method;
+//    @NotNull
+//    @Enumerated(EnumType.STRING)
+//    private PaymentMethod payment_method;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     private PaymentStatus payment_status;
 
-    @NotBlank
-    @Column(nullable = false, updatable = false, unique = true)
-    private String transaction_id;
+//    @NotBlank
+//    @Column(nullable = false, updatable = false, unique = true)
+//    private String transaction_id;
 
     @NotNull
     @Column(nullable = false)
@@ -45,9 +45,13 @@ public class Payments {
 
     @OneToOne
     @JoinColumn(name = "auction_id")
-    private Auctions auction;
+    private Auctions auction_id;
 
     @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "payer_id")
+    private User payer_id;
+
+    @OneToOne
+    @JoinColumn(name = "payee_id")
+    private User payee_id;
 }

@@ -5,4 +5,8 @@ import xdezo.bidding.onlineBidding.EntitiesCategories.AuctionCategory;
 
 public interface CategoryRepo extends JpaRepository<AuctionCategory,Long> {
 
+
+    AuctionCategory findByCategoryTitle(String categoryTitle);
+
+
 }

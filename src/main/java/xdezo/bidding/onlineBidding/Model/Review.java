@@ -11,6 +11,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -22,12 +24,14 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @Column(updatable = false)
-    private Long reviewer_id;
-    @NotNull
-    @Column(updatable = false)
-    private Long seller_id;
+
+    @OneToOne
+    @JoinColumn(name = "reviewer_id")
+   private User reviewerId;
+
+    @OneToOne
+    @JoinColumn(name = "seller_id")
+   private User sellerId;
 
     @NotNull
     @Min(1)
@@ -36,9 +40,9 @@ public class Review {
     @NotBlank
     private String  comment;
 
-    @NotBlank
+    @NotNull
     @CreationTimestamp
-    private String created_at;
+    private LocalDateTime created_at;
 
 
 }

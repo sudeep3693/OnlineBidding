@@ -27,21 +27,7 @@ public class UserValidation {
         return phoneNo != null && phoneNo.matches("\\d{10}");
     }
 
-    public boolean validateUsername(String username) {
-        if (username == null || username.isEmpty()) {
-            logger.error("Username is empty");
-            return false;
-        }
-        if (username.length() < 5) {
-            logger.error("Username is too short");
-            return false;
-        }
-        if (userRepo.findByUsername(username) != null) {
-            logger.error("Username already exists");
-            return false;
-        }
-        return true;
-    }
+ 
 
     public boolean validatePassword(String password) {
         if (password == null || password.isEmpty()) {

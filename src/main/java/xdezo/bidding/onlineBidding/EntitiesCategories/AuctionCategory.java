@@ -21,10 +21,13 @@ public class AuctionCategory {
     private Long id;
 
     @Column(nullable = false, unique = true, length = 100)
-    private String category_title;
+
+    private String categoryTitle;
 
     @Column(length = 500)
     private String category_description;
+
+
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Auctions> auctions;

@@ -21,12 +21,17 @@ public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
-    @Column(updatable = false)
-    private Long receiver_id;
 
-    @Column(updatable = false)
-    private Long sender_id;
+
+    @NotNull
+    @OneToOne
+    @JoinColumn(name="receiver_id")
+    private User receiver;
+
+
+    @OneToOne
+    @JoinColumn(name = "sender_id")
+    private User sender;
 
 
     @NotBlank
