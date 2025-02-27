@@ -23,7 +23,7 @@ public class AuctionImages {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "auction_image")
+    @JoinColumn(name = "auction_id")
     private Auctions auction;
 
 

@@ -68,9 +68,11 @@ public class Auctions {
     @Column(updatable = false)
     private Date created_at;
 
-    @NotNull
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "auction")
-   private List<AuctionImages> auction;
+
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "auction", orphanRemoval = true)
+    private List<AuctionImages> image;
+
 
     @Column(nullable = false)
     private Double buy_now_price;

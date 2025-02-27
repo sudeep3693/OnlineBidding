@@ -25,10 +25,10 @@ public class Transaction {
 
 
     @ManyToOne
-    @JoinColumn(name = "transaction")
+    @JoinColumn(name = "userId")
     private User userid;
 
-    @NotNull
+    @NotNull(message = "amount is required")
     private Double amount;
 
     @NotNull
