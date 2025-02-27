@@ -27,17 +27,11 @@ public class Payments {
     @Column(nullable = false)
     private Double amount;
 
-//    @NotNull
-//    @Enumerated(EnumType.STRING)
-//    private PaymentMethod payment_method;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     private PaymentStatus payment_status;
 
-//    @NotBlank
-//    @Column(nullable = false, updatable = false, unique = true)
-//    private String transaction_id;
 
     @NotNull
     @Column(nullable = false)

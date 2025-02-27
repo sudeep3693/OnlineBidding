@@ -68,8 +68,9 @@ public class Auctions {
     @Column(updatable = false)
     private Date created_at;
 
-    @Column(nullable = false, length = 500)
-    private String image_url;
+    @NotNull
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "auction")
+   private List<AuctionImages> auction;
 
     @Column(nullable = false)
     private Double buy_now_price;

@@ -95,6 +95,10 @@ public class User {
     private Message receiver;
 
 
+    @OneToMany(cascade =CascadeType.ALL, mappedBy = "userid")
+    private List<Transaction> transaction;
+
+
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "sellerId")
     private Review seller;
 
