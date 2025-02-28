@@ -42,7 +42,7 @@ public class PublicController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody User user) {
-        logger.info("POST request received at /api/login with user: {}", user);
+        logger.info("POST request received at /api/public/login with user: {}", user);
         String response = userService.loginUser(user);
         return ResponseEntity.ok(response);
     }

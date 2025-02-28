@@ -1,5 +1,6 @@
 package xdezo.bidding.onlineBidding.Model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -36,6 +37,12 @@ public class Bids {
     @Column(nullable = false, updatable = false)
     private LocalDateTime bidTime;
 
+    @Transient
+    @JsonProperty("auctionTitle")
+    private String auctionTitle;
+
+    @Transient
+    private Long bidderId;
 
     @NotNull
     private boolean is_auto_bid;

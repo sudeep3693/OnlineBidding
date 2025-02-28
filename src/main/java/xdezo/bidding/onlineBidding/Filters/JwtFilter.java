@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import xdezo.bidding.onlineBidding.Services.JWTService;
 import xdezo.bidding.onlineBidding.Services.MyUserService;
+import xdezo.bidding.onlineBidding.Utils.UserDetailHolder;
 
 import java.io.IOException;
 
@@ -25,6 +26,7 @@ public class JwtFilter extends OncePerRequestFilter {
     @Autowired
     private MyUserService userDetailsService;
 
+    private String userName;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
@@ -48,6 +50,8 @@ public class JwtFilter extends OncePerRequestFilter {
 
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
+
+                UserDetailHolder.setUsername(username);
             }
             else{
                 System.out.println("session expired");
@@ -58,5 +62,6 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
+        UserDetailHolder.clear();
             }
 }

@@ -33,6 +33,7 @@ public class AuctionsListedService {
         // Handle category association
         String categoryTitle = auction.getCategory_title().toUpperCase();
         AuctionCategory category = categoryRepo.findByCategoryTitle(categoryTitle);
+        auction.setTitle(auction.getTitle().toUpperCase());
 
         if (category == null) {
             throw new IllegalArgumentException("Category not found!");
