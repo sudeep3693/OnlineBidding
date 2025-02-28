@@ -41,8 +41,6 @@ public class Bids {
     @JsonProperty("auctionTitle")
     private String auctionTitle;
 
-    @Transient
-    private Long bidderId;
 
     @NotNull
     private boolean is_auto_bid;

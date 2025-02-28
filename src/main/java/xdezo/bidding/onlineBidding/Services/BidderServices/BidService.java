@@ -45,6 +45,10 @@ public class BidService{
             if (auction == null) {
                 return "Invalid auction";
             }
+            if(auction.getStatus().toString().equals("CLOSED")){
+
+                return "Auction Closed";
+            }
 
 
             User bidder = userRepo.findByEmail(UserDetailHolder.getUsername());
