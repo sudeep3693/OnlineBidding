@@ -36,6 +36,7 @@ public class ApplicationConfig {
 
         security.csrf(customizer -> customizer.disable())
                 .authorizeHttpRequests(request -> request
+                        .requestMatchers("ws/**").permitAll()
                         .requestMatchers("api/public/register", "api/public/login", "api/public/home")
                         .permitAll()
                         .requestMatchers("api/bidder/**").hasRole("BIDDER")
