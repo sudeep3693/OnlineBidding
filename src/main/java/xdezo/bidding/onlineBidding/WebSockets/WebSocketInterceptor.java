@@ -8,6 +8,7 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 import xdezo.bidding.onlineBidding.Services.JWTService;
+import xdezo.bidding.onlineBidding.Utils.UserDetailHolder;
 
 
 import java.util.Map;
@@ -16,6 +17,9 @@ import java.util.Map;
 
         @Autowired
         private final JWTService jwtService;
+
+        @Autowired
+        private UserDetailHolder userDetailHolder;
 
         public WebSocketInterceptor(JWTService jwtService) {
             this.jwtService = jwtService;

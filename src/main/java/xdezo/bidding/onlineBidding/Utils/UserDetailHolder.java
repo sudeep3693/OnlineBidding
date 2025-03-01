@@ -5,7 +5,7 @@ package xdezo.bidding.onlineBidding.Utils;
 
     public class UserDetailHolder {
 
-        private static final ThreadLocal<String> userHolder = new ThreadLocal<>();
+        public static final ThreadLocal<String> userHolder = new ThreadLocal<>();
 
         public static void setUsername(String username) {
             userHolder.set(username);
