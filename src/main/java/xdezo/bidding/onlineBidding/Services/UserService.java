@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import xdezo.bidding.onlineBidding.Validation.AddressValidation;
 import xdezo.bidding.onlineBidding.Validation.UserValidation;
-import xdezo.bidding.onlineBidding.Services.JWTService;
+import xdezo.bidding.onlineBidding.Authentication.Services.JWTService;
 
 @Service
 public class UserService {

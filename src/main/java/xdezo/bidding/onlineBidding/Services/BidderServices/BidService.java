@@ -3,7 +3,6 @@ package xdezo.bidding.onlineBidding.Services.BidderServices;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import xdezo.bidding.onlineBidding.Filters.JwtFilter;
 import xdezo.bidding.onlineBidding.Model.Auctions;
 import xdezo.bidding.onlineBidding.Model.Bids;
 import xdezo.bidding.onlineBidding.Model.User;
@@ -11,9 +10,6 @@ import xdezo.bidding.onlineBidding.Repo.AuctionsRepo;
 import xdezo.bidding.onlineBidding.Repo.BidsRepo;
 import xdezo.bidding.onlineBidding.Repo.UserRepo;
 import xdezo.bidding.onlineBidding.Utils.UserDetailHolder;
-
-import java.util.List;
-import java.util.Optional;
 
 
 @Slf4j

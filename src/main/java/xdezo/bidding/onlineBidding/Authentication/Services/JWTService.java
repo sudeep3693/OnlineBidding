@@ -1,4 +1,4 @@
-package xdezo.bidding.onlineBidding.Services;
+package xdezo.bidding.onlineBidding.Authentication.Services;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
@@ -29,16 +29,24 @@ public class JWTService {
                 .compact();
     }
 
-    public String getUserName(String token) {
-        try{
-            return jwtParser.parseClaimsJws(token).getPayload().getSubject();
-
-        }
-        catch (Exception e){
-            log.error("Exception in getting jwt");
+    public String getUsername(String token) {
+        try {
+            return jwtParser.parseClaimsJws(token)  // FIXED: Changed from parseClaimsJwt to parseClaimsJws
+                    .getBody().getSubject();
+        } catch (Exception e) {
+            log.error("Error while parsing username from JWT Token", e);
             return null;
         }
+    }
 
+    public Date getExpirationTime(String token) {
+        try {
+            return jwtParser.parseClaimsJws(token)  // FIXED
+                    .getBody().getExpiration();
+        } catch (Exception e) {
+            log.error("Error while parsing expiration time from JWT Token", e);
+            return null;
+        }
     }
 
     public boolean validateToken(String token, String username) {

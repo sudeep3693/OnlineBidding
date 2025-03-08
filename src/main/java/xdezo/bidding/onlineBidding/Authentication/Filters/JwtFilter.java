@@ -1,4 +1,4 @@
-package xdezo.bidding.onlineBidding.Filters;
+package xdezo.bidding.onlineBidding.Authentication.Filters;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -11,8 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import xdezo.bidding.onlineBidding.Services.JWTService;
-import xdezo.bidding.onlineBidding.Services.MyUserService;
+import xdezo.bidding.onlineBidding.Authentication.Services.JWTService;
+import xdezo.bidding.onlineBidding.Authentication.Services.MyUserService;
 import xdezo.bidding.onlineBidding.Utils.UserDetailHolder;
 
 import java.io.IOException;
@@ -36,7 +36,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         if(authHeader != null && authHeader.startsWith("Bearer ")){
             token = authHeader.substring(7);
-            username = jwtService.getUserName(token);
+            username = jwtService.getUsername(token);
         }
 
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){

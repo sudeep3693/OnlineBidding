@@ -1,4 +1,4 @@
-package xdezo.bidding.onlineBidding.Principal;
+package xdezo.bidding.onlineBidding.Authentication.Principal;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

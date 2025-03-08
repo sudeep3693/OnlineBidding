@@ -1,4 +1,4 @@
-package xdezo.bidding.onlineBidding.Services;
+package xdezo.bidding.onlineBidding.Authentication.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import xdezo.bidding.onlineBidding.Model.User;
-import xdezo.bidding.onlineBidding.Principal.UserPrincipal;
+import xdezo.bidding.onlineBidding.Authentication.Principal.UserPrincipal;
 import xdezo.bidding.onlineBidding.Repo.UserRepo;
 
 @Service
