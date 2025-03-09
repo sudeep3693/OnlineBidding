@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import xdezo.bidding.onlineBidding.Payment.Models.PaymentsInfo;
+import xdezo.bidding.onlineBidding.Payment.PaymentsInfo;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,6 +47,7 @@ public class PaymentController {
         ResponseEntity<String> response = restTemplate.exchange(esewaPaymentUrl, HttpMethod.POST, requestEntity, String.class);
 
         // Return eSewa's response
+        System.out.println(response);
         return ResponseEntity.ok(response.getBody());
     }
 }

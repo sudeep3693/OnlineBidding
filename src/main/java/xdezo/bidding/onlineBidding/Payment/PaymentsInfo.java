@@ -1,4 +1,4 @@
-package xdezo.bidding.onlineBidding.Payment.Models;
+package xdezo.bidding.onlineBidding.Payment;
 
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
