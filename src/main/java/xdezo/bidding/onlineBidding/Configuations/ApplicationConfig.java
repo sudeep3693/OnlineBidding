@@ -10,6 +10,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -34,10 +35,10 @@ public class ApplicationConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity security) throws Exception {
 
-        security.csrf(customizer -> customizer.disable())
+        security.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("ws/**").permitAll()
-                        .requestMatchers("api/public/register", "api/public/login", "api/public/home")
+                        .requestMatchers("api/public/register", "api/public/login", "api/public/home", "/api/payment/**")
                         .permitAll()
                         .requestMatchers("api/bidder/**").hasRole("BIDDER")
                         .requestMatchers("api/seller/**").hasRole("SELLER")

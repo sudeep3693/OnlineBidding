@@ -2,6 +2,9 @@ package xdezo.bidding.onlineBidding.Payment.Models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Collections;
+import java.util.List;
+
 public class PaymentsInfo {
 
     @JsonProperty("amount")
@@ -38,88 +41,88 @@ public class PaymentsInfo {
     private String transactionUuid;
 
     // Getters and Setters
-    public String getAmount() {
-        return amount;
+    public List<String> getAmount() {
+        return Collections.singletonList(amount);
     }
 
     public void setAmount(String amount) {
         this.amount = amount;
     }
 
-    public String getFailureUrl() {
-        return failureUrl;
+    public List<String> getFailureUrl() {
+        return Collections.singletonList(failureUrl);
     }
 
     public void setFailureUrl(String failureUrl) {
         this.failureUrl = failureUrl;
     }
 
-    public String getProductDeliveryCharge() {
-        return productDeliveryCharge;
+    public List<String> getProductDeliveryCharge() {
+        return Collections.singletonList(productDeliveryCharge);
     }
 
     public void setProductDeliveryCharge(String productDeliveryCharge) {
         this.productDeliveryCharge = productDeliveryCharge;
     }
 
-    public String getProductServiceCharge() {
-        return productServiceCharge;
+    public List<String> getProductServiceCharge() {
+        return Collections.singletonList(productServiceCharge);
     }
 
     public void setProductServiceCharge(String productServiceCharge) {
         this.productServiceCharge = productServiceCharge;
     }
 
-    public String getProductCode() {
-        return productCode;
+    public List<String> getProductCode() {
+        return Collections.singletonList(productCode);
     }
 
     public void setProductCode(String productCode) {
         this.productCode = productCode;
     }
 
-    public String getSignature() {
-        return signature;
+    public List<String> getSignature() {
+        return Collections.singletonList(signature);
     }
 
     public void setSignature(String signature) {
         this.signature = signature;
     }
 
-    public String getSignedFieldNames() {
-        return signedFieldNames;
+    public List<String> getSignedFieldNames() {
+        return Collections.singletonList(signedFieldNames);
     }
 
     public void setSignedFieldNames(String signedFieldNames) {
         this.signedFieldNames = signedFieldNames;
     }
 
-    public String getSuccessUrl() {
-        return successUrl;
+    public List<String> getSuccessUrl() {
+        return Collections.singletonList(successUrl);
     }
 
     public void setSuccessUrl(String successUrl) {
         this.successUrl = successUrl;
     }
 
-    public String getTaxAmount() {
-        return taxAmount;
+    public List<String> getTaxAmount() {
+        return Collections.singletonList(taxAmount);
     }
 
     public void setTaxAmount(String taxAmount) {
         this.taxAmount = taxAmount;
     }
 
-    public String getTotalAmount() {
-        return totalAmount;
+    public List<String> getTotalAmount() {
+        return Collections.singletonList(totalAmount);
     }
 
     public void setTotalAmount(String totalAmount) {
         this.totalAmount = totalAmount;
     }
 
-    public String getTransactionUuid() {
-        return transactionUuid;
+    public List<String> getTransactionUuid() {
+        return Collections.singletonList(transactionUuid);
     }
 
     public void setTransactionUuid(String transactionUuid) {
