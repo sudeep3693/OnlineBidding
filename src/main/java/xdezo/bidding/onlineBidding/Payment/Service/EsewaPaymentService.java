@@ -85,7 +85,7 @@ public class EsewaPaymentService {
                 log.info("Redirecting to: {}", redirectUrl);
 
                 // You can perform any further logic or forward the URL to the frontend
-                return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(redirectUrl)).build();
+                return ResponseEntity.ok( redirectUrl);
             } else {
                 log.error("Error in payment initiation: {}", response.getBody());
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Payment initiation failed");
