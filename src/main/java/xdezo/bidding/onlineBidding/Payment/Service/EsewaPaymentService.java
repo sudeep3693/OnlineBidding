@@ -1,14 +1,15 @@
 package xdezo.bidding.onlineBidding.Payment.Service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import lombok.extern.slf4j.Slf4j;
+import xdezo.bidding.onlineBidding.Payment.Models.PaymentsInfo;
 
-import java.net.URI;
 import java.util.UUID;
 
 @Slf4j
@@ -17,16 +18,27 @@ public class EsewaPaymentService {
 
     private final RestTemplate restTemplate;
 
+    @Value("${esewa.submissionUrl}")
+    private String url;
+
+
+    @Value("${esewa.success_url}")
+    private String successUrl;
+
+    @Value("${esewa.failure_url}")
+    private String failedUrl;
+
+    @Value("${esewa.secretKey}")
+    private String secretKey;
+
 
     public EsewaPaymentService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-    public ResponseEntity<String> initiateEsewaPayment() throws Exception {
-        String url = "https://rc-epay.esewa.com.np/api/epay/main/v2/form"; // UAT eSewa URL
+    public ResponseEntity<String> initiateEsewaPayment(@Valid PaymentsInfo paymentsInfo) throws Exception {
 
-        // Payment details
-        String totalAmount = "110";
+        String totalAmount = String.valueOf(paymentsInfo.getTotalAmount());
        String transactionUUID = UUID.randomUUID().toString(); // Generate unique transaction ID
         String productCode = "EPAYTEST";
 
@@ -35,8 +47,6 @@ public class EsewaPaymentService {
                 ",product_code=" + productCode;
 
         signedData = signedData.trim();
-
-        String secretKey = "8gBm/:&EnhH.1/q"; // UAT secret key
 
         System.out.println("transaction id is "+transactionUUID);
 // Generate the signature
@@ -51,15 +61,15 @@ public class EsewaPaymentService {
 
         // Create request body
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
-        body.add("amount", "100");
-        body.add("tax_amount", "10");
-        body.add("total_amount", totalAmount);
+        body.add("amount",String.valueOf(paymentsInfo.getAmount()));
+        body.add("tax_amount", String.valueOf(paymentsInfo.getTaxAmount()));
+        body.add("total_amount", String.valueOf(paymentsInfo.getTotalAmount()));
         body.add("transaction_uuid", transactionUUID);
         body.add("product_code", productCode);
-        body.add("product_service_charge", "0");
-        body.add("product_delivery_charge", "0");
-        body.add("success_url", "http://localhost:8080/api/payment/success");
-        body.add("failure_url", "http://localhost:8080/api/payment/failed");
+        body.add("product_service_charge", String.valueOf(paymentsInfo.getServiceCharge()));
+        body.add("product_delivery_charge", String.valueOf(paymentsInfo.getDeliveryCharge()));
+        body.add("success_url", successUrl);
+        body.add("failure_url", failedUrl);
         body.add("signed_field_names", "total_amount,transaction_uuid,product_code");
         body.add("signature", signature);
 
@@ -79,7 +89,6 @@ public class EsewaPaymentService {
             // Send the request to eSewa
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
 
-// Check if the response code is 302
             if (response.getStatusCode() == HttpStatus.FOUND) {
                 String redirectUrl = response.getHeaders().getLocation().toString();
                 log.info("Redirecting to: {}", redirectUrl);
