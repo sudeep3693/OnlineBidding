@@ -1,4 +1,4 @@
-package xdezo.bidding.onlineBidding.EntitiesCategories;
+package xdezo.bidding.onlineBidding.Model.Categories;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

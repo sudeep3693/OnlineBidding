@@ -3,7 +3,7 @@ package xdezo.bidding.onlineBidding.Services;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import xdezo.bidding.onlineBidding.EntitiesCategories.AuctionCategory;
+import xdezo.bidding.onlineBidding.Model.Categories.AuctionCategory;
 import xdezo.bidding.onlineBidding.Repo.CategoryRepo;
 
 @Service

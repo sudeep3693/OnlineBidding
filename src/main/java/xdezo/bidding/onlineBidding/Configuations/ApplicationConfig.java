@@ -17,6 +17,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.client.RestTemplate;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.spring6.SpringTemplateEngine;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+import org.thymeleaf.templateresolver.ITemplateResolver;
 import xdezo.bidding.onlineBidding.Authentication.Filters.JwtFilter;
 
 import java.util.logging.Logger;
@@ -40,7 +44,7 @@ public class ApplicationConfig {
                         .requestMatchers("ws/**").permitAll()
                         .requestMatchers("api/public/register", "api/public/login", "api/public/home", "/api/payment/**")
                         .permitAll()
-                        .requestMatchers("api/bidder/**").hasRole("BIDDER")
+                        .requestMatchers("api/bidder/**", "app/mail/**").hasRole("BIDDER")
                         .requestMatchers("api/seller/**").hasRole("SELLER")
                         .requestMatchers("api/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
@@ -55,6 +59,9 @@ public class ApplicationConfig {
         return security.build();
 
     }
+
+
+
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
@@ -78,6 +85,31 @@ public class ApplicationConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
+
+
+    // theamleaf template configuration
+
+    @Bean
+    public TemplateEngine emailTemplateEngine() {
+        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+        templateEngine.setTemplateResolver(emailTemplateResolver());
+        return templateEngine;
+    }
+
+
+    // theamleaf template resoler
+    @Bean
+    public ITemplateResolver emailTemplateResolver() {
+        ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+        templateResolver.setPrefix("templates/");
+        templateResolver.setSuffix(".html");
+        templateResolver.setTemplateMode("HTML");
+        templateResolver.setCharacterEncoding("UTF-8");
+        templateResolver.setCacheable(false);
+        return templateResolver;
+    }
+
+
 
 
 }

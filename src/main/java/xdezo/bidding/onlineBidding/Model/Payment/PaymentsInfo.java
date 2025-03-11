@@ -1,4 +1,4 @@
-package xdezo.bidding.onlineBidding.Payment.Models;
+package xdezo.bidding.onlineBidding.Model.Payment;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;

@@ -1,9 +1,8 @@
 package xdezo.bidding.onlineBidding.Services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import xdezo.bidding.onlineBidding.EntitiesCategories.AuctionCategory;
+import xdezo.bidding.onlineBidding.Model.Categories.AuctionCategory;
 import xdezo.bidding.onlineBidding.Model.Auctions;
 import xdezo.bidding.onlineBidding.Model.AuctionImages;
 import xdezo.bidding.onlineBidding.Model.User;

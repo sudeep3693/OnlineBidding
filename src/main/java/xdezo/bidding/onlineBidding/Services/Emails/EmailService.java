@@ -1,4 +1,4 @@
-package xdezo.bidding.onlineBidding.Emails;
+package xdezo.bidding.onlineBidding.Services.Emails;
 
 
 import jakarta.mail.internet.MimeMessage;
@@ -7,7 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import xdezo.bidding.onlineBidding.Emails.Entities.MailMessage;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
+import xdezo.bidding.onlineBidding.Utils.UserDetailHolder;
+
+import java.util.Date;
 
 @Slf4j
 @Service
@@ -16,17 +20,28 @@ public class EmailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    public String sendSimpleMail(MailMessage mailMessage){
+
+    @Autowired
+    private TemplateEngine templateEngine;
+
+    public String sendSimpleMail(){
 
         try{
+            String to = UserDetailHolder.getUsername();
+
+            Context context = new Context();
+                context.setVariable("email",to);
+                context.setVariable("date", new Date());
+
+
+            String htmlContent = templateEngine.process("EmailTemplate",context);
 
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
 
-            String to = mailMessage.getTo();
-            String htmlContent = mailMessage.getMessage();
-            String subject = mailMessage.getSubject();
+
+            String subject = "This is subject";
 
             helper.setFrom("sudeepsubedi72@gmail.com");
             helper.setTo(to);
@@ -38,7 +53,7 @@ public class EmailService {
             return "success";
         }
         catch (Exception e){
-            log.error("error in email service");
+            log.error("error in email service {}",e);
             return "failed";
         }
     }

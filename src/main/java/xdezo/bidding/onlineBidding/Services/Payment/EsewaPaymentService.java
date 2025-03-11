@@ -1,4 +1,4 @@
-package xdezo.bidding.onlineBidding.Payment.Service;
+package xdezo.bidding.onlineBidding.Services.Payment;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,8 +8,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import lombok.extern.slf4j.Slf4j;
-import xdezo.bidding.onlineBidding.Payment.Models.PaymentsInfo;
-import xdezo.bidding.onlineBidding.Payment.Security.SignatureGenerator;
+import xdezo.bidding.onlineBidding.Model.Payment.PaymentsInfo;
+import xdezo.bidding.onlineBidding.Utils.Payment.SignatureGenerator;
 
 import java.util.UUID;
 

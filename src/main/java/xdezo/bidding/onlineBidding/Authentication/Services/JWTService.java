@@ -18,7 +18,7 @@ public class JWTService {
     private final JwtParser jwtParser = Jwts.parser().verifyWith((SecretKey) secret).build();
 
 
-    public static String generateJWT(User user  ) {
+    public static String generateJWT(User user) {
 
         return Jwts.builder()
                 .subject(user.getEmail())

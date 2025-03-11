@@ -5,9 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import xdezo.bidding.onlineBidding.Payment.Models.PaymentsInfo;
-import xdezo.bidding.onlineBidding.Payment.Security.BaseDecoder;
-import xdezo.bidding.onlineBidding.Payment.Service.EsewaPaymentService;
+import xdezo.bidding.onlineBidding.Model.Payment.PaymentsInfo;
+import xdezo.bidding.onlineBidding.Utils.Payment.BaseDecoder;
+import xdezo.bidding.onlineBidding.Services.Payment.EsewaPaymentService;
 
 @Slf4j
 @RestController

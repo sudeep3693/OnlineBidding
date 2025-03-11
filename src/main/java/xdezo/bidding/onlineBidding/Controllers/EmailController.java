@@ -6,11 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import xdezo.bidding.onlineBidding.Emails.EmailService;
-import xdezo.bidding.onlineBidding.Emails.Entities.MailMessage;
+import xdezo.bidding.onlineBidding.Services.Emails.EmailService;
 
 @RestController
 @RequestMapping("/app/mail")
@@ -21,10 +19,10 @@ public class EmailController {
     private EmailService emailService;
 
     @PostMapping("/send")
-    public ResponseEntity<String> sendEmail(@RequestBody MailMessage mailMessage){
+    public ResponseEntity<String> sendEmail(){
 
         try{
-           return ResponseEntity.ok(emailService.sendSimpleMail(mailMessage));
+           return ResponseEntity.ok(emailService.sendSimpleMail());
 
         }
         catch(Exception e){

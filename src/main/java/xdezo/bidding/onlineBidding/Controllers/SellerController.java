@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import xdezo.bidding.onlineBidding.EntitiesCategories.AuctionCategory;
+import xdezo.bidding.onlineBidding.Model.Categories.AuctionCategory;
 import xdezo.bidding.onlineBidding.Model.Auctions;
 import xdezo.bidding.onlineBidding.Services.AuctionsListedService;
 import xdezo.bidding.onlineBidding.Services.CategoryService;

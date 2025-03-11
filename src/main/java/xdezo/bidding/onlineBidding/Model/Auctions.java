@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import xdezo.bidding.onlineBidding.EntitiesCategories.AuctionCategory;
+import xdezo.bidding.onlineBidding.Model.Categories.AuctionCategory;
 import xdezo.bidding.onlineBidding.Enums.AuctionStatus;
 
 import java.time.LocalDateTime;
