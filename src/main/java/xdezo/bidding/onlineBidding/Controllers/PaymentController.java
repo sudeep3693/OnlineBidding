@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import xdezo.bidding.onlineBidding.Payment.Models.PaymentsInfo;
+import xdezo.bidding.onlineBidding.Payment.Security.BaseDecoder;
 import xdezo.bidding.onlineBidding.Payment.Service.EsewaPaymentService;
 
 @Slf4j
@@ -15,6 +16,9 @@ public class PaymentController {
 
     @Autowired
     private EsewaPaymentService esewaPaymentService;
+
+    @Autowired
+    private BaseDecoder baseDecoder;
 
     @PostMapping("/pay")
     public ResponseEntity<String> initiatePayment(@RequestBody @Valid PaymentsInfo paymentsInfo) {
@@ -27,9 +31,11 @@ public class PaymentController {
     }
 
     @GetMapping("/success")
-    public ResponseEntity<String> success(){
+    public ResponseEntity<String> success(@RequestParam("data") String data){
 
         System.out.println("success");
+        String decoded = baseDecoder.decodeBase64(data);
+        System.out.println(decoded);
        return ResponseEntity.ok("success");
 
     }

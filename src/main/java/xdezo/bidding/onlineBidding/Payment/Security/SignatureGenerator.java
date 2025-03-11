@@ -1,4 +1,4 @@
-package xdezo.bidding.onlineBidding.Payment.Service;
+package xdezo.bidding.onlineBidding.Payment.Security;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
