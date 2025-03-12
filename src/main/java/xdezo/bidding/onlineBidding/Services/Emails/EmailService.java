@@ -1,6 +1,8 @@
 package xdezo.bidding.onlineBidding.Services.Emails;
 
 
+//uptodate
+
 import jakarta.mail.internet.MimeMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,9 @@ public class EmailService {
     public String sendSimpleMail(){
 
         try{
+
             String to = UserDetailHolder.getUsername();
+
 
             Context context = new Context();
                 context.setVariable("email",to);
